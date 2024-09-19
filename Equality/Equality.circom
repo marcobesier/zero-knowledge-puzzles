@@ -4,9 +4,15 @@ pragma circom 2.1.4;
 // Return using signal 'c'.
 
 template Equality() {
-   // Your Code Here..
+   signal input a[3];
+   signal output c;
+   // Use intermediary signal assignment, since == and && are not linear or quadratic operations.
+   // They are higher-level logical operations that cannot be directly represented as quadratic constraints.
+   // Therefore, when trying to directly constrain via c <== a[0]==a[1] && a[1]==a[2], Circom's compiler will complain
+   // that non-quadratic constraints are not allowed.  
+   signal isEqual <-- a[0]==a[1] && a[1]==a[2];
 
-   
+   c <== isEqual;
 }
 
 component main = Equality();

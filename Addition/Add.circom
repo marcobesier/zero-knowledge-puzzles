@@ -6,4 +6,4 @@ template Add() {
     in[0] === in[1] + in[2];
 }
 
-component main  = Add();
+component main = Add();
