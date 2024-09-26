@@ -10,6 +10,21 @@ template IntDivOut(n) {
     signal input denominator;
     signal output out;
 
+    signal remainder;
+    signal quotient;
+
+    quotient <-- numerator \ denominator;
+    remainder <-- numerator % denominator;
+
+    numerator === denominator * quotient + remainder;
+
+    // Ensure remainder is less than denominator
+    component lt = LessThan(n);
+    lt.in[0] <== remainder;
+    lt.in[1] <== denominator;
+    lt.out === 1;
+
+    out <== quotient;
 }
 
 component main = IntDivOut(252);
